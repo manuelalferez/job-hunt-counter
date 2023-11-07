@@ -46,7 +46,7 @@ export default function Counter({
         <CardDescription className="text-xl font-bold text-dark">
           {title}
         </CardDescription>
-        <h1 className="text-6xl pt-2 text-dark font-mono font-bold">
+        <h1 className="text-8xl pt-2 text-dark font-mono font-bold">
           {isLoading ? <LoadingIcon /> : count}
         </h1>
       </div>
