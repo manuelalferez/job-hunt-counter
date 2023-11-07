@@ -1,20 +1,43 @@
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "./ui/table";
 
-export default function Stats() {
+export default async function Stats({
+  fetchCounter,
+}: {
+  fetchCounter: (title: string) => Promise<string>;
+}) {
+  const peopleContacted = await fetchCounter("People contacted");
+  const peopleResponded = await fetchCounter("People responded");
+  const interviews = await fetchCounter("Interviews");
+  const applicationsSubmitted = await fetchCounter("Applications submitted");
+
+  const peopleContactedVsResponded = (
+    (Number(peopleResponded) / Number(peopleContacted)) *
+    100
+  ).toFixed(2);
+
+  const interviewsRatePeopleContacted = (
+    (Number(interviews) / Number(peopleContacted)) *
+    100
+  ).toFixed(2);
+
+  const interviewsRateApplicationsSubmitted = (
+    (Number(interviews) / Number(applicationsSubmitted)) *
+    100
+  ).toFixed(2);
+
   return (
     <Table className="w-fit mx-auto p-0 mb-12 border-0 border-blue-600 rounded-md shadow-xl bg-white">
       <TableHeader>
         <TableRow>
           <TableHead className=" text-blue-800 text-xl">
-            People contacted/responded
+            People contacted vs responded
           </TableHead>
           <TableHead className=" text-blue-800 text-xl">
             Interviews rate (people contacted)
@@ -27,13 +50,13 @@ export default function Stats() {
       <TableBody>
         <TableRow>
           <TableCell className="text-2xl font-mono font-bold text-blue-800 text-end">
-            5.4%
+            {peopleContactedVsResponded}%
           </TableCell>
           <TableCell className="text-2xl font-mono font-bold text-blue-800 text-end">
-            1.4%
+            {interviewsRatePeopleContacted}%
           </TableCell>
           <TableCell className="text-2xl font-mono font-bold text-blue-800 text-end">
-            0.4%
+            {interviewsRateApplicationsSubmitted}%
           </TableCell>
         </TableRow>
       </TableBody>

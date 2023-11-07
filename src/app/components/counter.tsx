@@ -1,18 +1,45 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardDescription } from "./ui/card";
 import { Button } from "./ui/button";
-import { DownIcon, UpIcon } from "./ui/counter-icons";
+import { DownIcon, LoadingIcon, UpIcon } from "./ui/counter-icons";
 
-export default function Counter({ title }: { title: string }) {
+export default function Counter({
+  title,
+  fetchCounter,
+  downCounter,
+  upCounter,
+}: {
+  title: string;
+  fetchCounter: (title: string) => Promise<string>;
+  downCounter: (title: string) => Promise<void>;
+  upCounter: (title: string) => Promise<void>;
+}) {
   const [count, setCount] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const up = () => setCount(count + 1);
-  const down = () => {
+  useEffect(() => {
+    const fetchData = async () => {
+      const value = await fetchCounter(title);
+      setCount(Number(value));
+    };
+
+    fetchData();
+    setIsLoading(false);
+  }, [title]);
+
+  const up = async () => {
+    setCount(count + 1);
+    await upCounter(title);
+  };
+
+  const down = async () => {
     if (count === 0) return;
     setCount(count - 1);
+    await downCounter(title);
   };
+
   return (
     <Card className="w-fit p-1 border-0 border-blue-600 rounded-md shadow-xl">
       <div className="p-4 flex justify-center flex-col items-center">
@@ -20,7 +47,7 @@ export default function Counter({ title }: { title: string }) {
           {title}
         </CardDescription>
         <h1 className="text-6xl pt-2 text-blue-800 font-mono font-bold">
-          {count}
+          {isLoading ? <LoadingIcon /> : count}
         </h1>
       </div>
       <Button
