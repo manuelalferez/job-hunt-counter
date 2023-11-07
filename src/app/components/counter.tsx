@@ -41,26 +41,26 @@ export default function Counter({
   };
 
   return (
-    <Card className="w-fit p-1 border-0 border-blue-600 rounded-md shadow-xl">
+    <Card className="w-fit p-1 border-4 border-lightgreen rounded-md shadow-md bg-light">
       <div className="p-4 flex justify-center flex-col items-center">
-        <CardDescription className="text-xl font-bold text-blue-800">
+        <CardDescription className="text-xl font-bold text-dark">
           {title}
         </CardDescription>
-        <h1 className="text-6xl pt-2 text-blue-800 font-mono font-bold">
+        <h1 className="text-6xl pt-2 text-dark font-mono font-bold">
           {isLoading ? <LoadingIcon /> : count}
         </h1>
       </div>
       <Button
         variant="outline"
         onClick={down}
-        className="text-blue-200 w-1/2 hover:text-blue-600 border-none rounded-none hover:bg-blue-50"
+        className="text-lightgreen w-1/2 hover:text-dark border-none rounded-none hover:bg-light bg-light"
       >
         <DownIcon />
       </Button>
       <Button
         variant="outline"
         onClick={up}
-        className="text-blue-200 w-1/2 hover:text-blue-600 border-none rounded-none hover:bg-blue-50"
+        className="text-lightgreen w-1/2 hover:text-dark border-none rounded-none hover:bg-light bg-light"
       >
         <UpIcon />
       </Button>

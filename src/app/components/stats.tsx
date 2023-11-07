@@ -33,33 +33,35 @@ export default async function Stats({
   ).toFixed(2);
 
   return (
-    <Table className="w-fit mx-auto p-0 mb-12 border-0 border-blue-600 rounded-md shadow-xl bg-white">
-      <TableHeader>
-        <TableRow>
-          <TableHead className=" text-blue-800 text-xl">
-            People contacted vs responded
-          </TableHead>
-          <TableHead className=" text-blue-800 text-xl">
-            Interviews rate (people contacted)
-          </TableHead>
-          <TableHead className=" text-blue-800 text-xl">
-            Interviews rate (applications submitted)
-          </TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        <TableRow>
-          <TableCell className="text-2xl font-mono font-bold text-blue-800 text-end">
-            {peopleContactedVsResponded}%
-          </TableCell>
-          <TableCell className="text-2xl font-mono font-bold text-blue-800 text-end">
-            {interviewsRatePeopleContacted}%
-          </TableCell>
-          <TableCell className="text-2xl font-mono font-bold text-blue-800 text-end">
-            {interviewsRateApplicationsSubmitted}%
-          </TableCell>
-        </TableRow>
-      </TableBody>
-    </Table>
+    <div className="border-4 rounded-md border-lightgreen mx-auto w-fit h-fit mb-12 bg-light">
+      <Table className="w-fit  p-0 border-0  rounded-md shadow-md bg-light hover:bg-light">
+        <TableHeader>
+          <TableRow className="border-none">
+            <TableHead className=" text-dark text-xl hover:bg-light bg-light">
+              People contacted vs responded
+            </TableHead>
+            <TableHead className=" text-dark text-xl hover:bg-light bg-light">
+              Interviews rate (people contacted)
+            </TableHead>
+            <TableHead className=" text-dark text-xl hover:bg-light bg-light">
+              Interviews rate (applications submitted)
+            </TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            <TableCell className="text-3xl font-mono font-bold text-dark text-end hover:bg-light bg-light">
+              {peopleContactedVsResponded}%
+            </TableCell>
+            <TableCell className="text-3xl font-mono font-bold text-dark text-end hover:bg-light bg-light">
+              {interviewsRatePeopleContacted}%
+            </TableCell>
+            <TableCell className="text-3xl font-mono font-bold text-dark text-end hover:bg-light bg-light">
+              {interviewsRateApplicationsSubmitted}%
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </div>
   );
 }
