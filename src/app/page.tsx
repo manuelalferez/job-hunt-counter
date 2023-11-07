@@ -8,7 +8,11 @@ type SearchParams = {
   password?: string | null;
 };
 
-export default function Home({ searchParams }: { searchParams: SearchParams }) {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) {
   async function fetchCounter(title: string) {
     "use server";
     return await getCounter(title);
@@ -24,7 +28,8 @@ export default function Home({ searchParams }: { searchParams: SearchParams }) {
     await decreaseCounter(title);
   }
 
-  function isAuthorized() {
+  async function checkIsAuthorized() {
+    "use server";
     if (Object.keys(searchParams).length === 0) return false;
     if (!searchParams.password) return false;
     return isPasswordCorrect(searchParams.password);
@@ -38,12 +43,14 @@ export default function Home({ searchParams }: { searchParams: SearchParams }) {
     "Offers",
   ];
 
+  const isAuthorized = await checkIsAuthorized();
+
   return (
     <main className="p-24 flex flex-col gap-16">
       <h1 className="text-6xl text-blue-800 flex justify-center">
         Applications
       </h1>
-      {isAuthorized() && (
+      {isAuthorized && (
         <div className="flex flex-col gap-16">
           <div className="flex justify-center gap-8 flex-wrap">
             {titles.map((title, index) => (
@@ -61,7 +68,7 @@ export default function Home({ searchParams }: { searchParams: SearchParams }) {
           </div>
         </div>
       )}
-      {!isAuthorized() && (
+      {!isAuthorized && (
         <Card className="flex justify-center py-12">
           <h1 className="text-4xl text-blue-800">Unauthorized ✋</h1>
         </Card>
