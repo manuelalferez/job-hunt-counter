@@ -77,8 +77,12 @@ export default async function Home({
         </div>
       )}
       {!isAuthorized && (
-        <Card className="flex justify-center py-12">
-          <h1 className="text-4xl text-blue-800">Unauthorized ✋</h1>
+        <Card className="flex flex-col gap-4 items-center justify-center text-dark py-12 bg-light border-4 border-lightgreen shadow-md">
+          <h1 className="text-4xl">Unauthorized ✋</h1>
+          <p className="">
+            Please, enter the password to access the data. The password is
+            provided in the URL as a query parameter.
+          </p>
         </Card>
       )}
     </main>
