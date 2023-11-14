@@ -35,7 +35,7 @@ export async function MonthsStats() {
         <tbody>
           {applicationsSubmitted.map((row, index) => (
             <tr key={index} className="border-none">
-              <td className="hover:bg-light bg-light text-dark text-xl">
+              <td className="hover:bg-light bg-light text-dark text-xl font-bold">
                 {row.key}
               </td>
               <td className="hover:bg-light bg-light text-dark text-xl font-mono text-end tabular-nums">

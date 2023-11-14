@@ -1,7 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { DownIcon, LoadingIcon, UpIcon } from "./ui/counter-icons";
+import {
+  DownIcon,
+  LoadingIcon,
+  IncrementIcon,
+  UpIcon,
+} from "./ui/counter-icons";
 
 export default function Counter({
   title,
@@ -51,9 +56,12 @@ export default function Counter({
         <h1 className="text-8xl pt-2 text-dark font-mono font-bold">
           {isLoading ? <LoadingIcon /> : count}
         </h1>
-        <div className="stat-desc text-dark font-mono text-start">
-          ↗︎ {incrementThisWeek} this week
-        </div>
+        {incrementThisWeek !== 0 && (
+          <div className="stat-desc text-dark font-mono text-start flex gap-1">
+            <IncrementIcon />
+            <span className="font-bold">{incrementThisWeek}</span> this week
+          </div>
+        )}
       </div>
       <div>
         <button
