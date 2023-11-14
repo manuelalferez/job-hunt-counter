@@ -1,12 +1,8 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-
 export function Auth() {
-  const { push } = useRouter();
-
   function login(value: string) {
-    push("/?password=" + value);
+    window.location.replace("/?password=" + value);
   }
 
   function handleLogin(event: React.FormEvent<HTMLFormElement>) {
