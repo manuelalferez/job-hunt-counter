@@ -1,4 +1,5 @@
 import Counter from "./components/counter";
+import { MonthsStats } from "./components/months-stats";
 import Stats from "./components/stats";
 import {
   decreaseCounter,
@@ -82,7 +83,14 @@ export default async function Home({
             ))}
           </div>
           <div>
+            <h1 className="text-4xl text-dark flex justify-center font-bold py-12 pb-8">
+              Global Insights
+            </h1>
             <Stats fetchCounter={fetchCounter} />
+            <h1 className="text-4xl text-dark flex justify-center font-bold py-12 pb-8">
+              Monthly Insights
+            </h1>
+            <MonthsStats />
           </div>
         </div>
       )}
