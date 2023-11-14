@@ -12,9 +12,8 @@ export function convertToSlug(input: string): string {
   return slug;
 }
 
-export function isPasswordCorrect(password: string | null): boolean {
-  if (password === null) return false;
-  return password === process.env.PASSWORD;
+export function createSlug(password: string, title: string): string {
+  return `${convertToSlug(password)}-${convertToSlug(title)}`;
 }
 
 export interface MonthlyCountTable {

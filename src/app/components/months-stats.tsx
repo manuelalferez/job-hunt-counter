@@ -1,13 +1,22 @@
-import { generateMonthlyCountTable } from "../lib/utils";
+import { off } from "process";
+import { createSlug, generateMonthlyCountTable } from "../lib/utils";
 
-export async function MonthsStats() {
+export async function MonthsStats({ password }: { password: string }) {
   const applicationsSubmitted = await generateMonthlyCountTable(
-    "Applications submitted"
+    createSlug(password, "Applications submitted")
   );
-  const peopleContacted = await generateMonthlyCountTable("People contacted");
-  const peopleResponded = await generateMonthlyCountTable("People responded");
-  const interviews = await generateMonthlyCountTable("Interviews");
-  const offers = await generateMonthlyCountTable("Offers");
+  const peopleContacted = await generateMonthlyCountTable(
+    createSlug(password, "People contacted")
+  );
+  const peopleResponded = await generateMonthlyCountTable(
+    createSlug(password, "People responded")
+  );
+  const interviews = await generateMonthlyCountTable(
+    createSlug(password, "Interviews")
+  );
+  const offers = await generateMonthlyCountTable(
+    createSlug(password, "Offers")
+  );
 
   return (
     <div className="border-4 rounded-md border-lightgreen mx-auto w-fit h-fit mb-12 bg-light">
@@ -33,6 +42,13 @@ export async function MonthsStats() {
           </tr>
         </thead>
         <tbody>
+          {applicationsSubmitted.length === 0 &&
+            offers.length === 0 &&
+            interviews.length === 0 &&
+            peopleResponded.length === 0 &&
+            peopleContacted.length === 0 && (
+              <div className="p-4">No data yet...</div>
+            )}
           {applicationsSubmitted.map((row, index) => (
             <tr key={index} className="border-none">
               <td className="hover:bg-light bg-light text-dark text-xl font-bold">

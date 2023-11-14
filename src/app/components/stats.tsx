@@ -6,7 +6,6 @@ export default async function Stats({
   const peopleContacted = await fetchCounter("People contacted");
   const peopleResponded = await fetchCounter("People responded");
   const interviews = await fetchCounter("Interviews");
-
   const applicationsSubmitted = await fetchCounter("Applications submitted");
 
   const peopleContactedVsResponded =
