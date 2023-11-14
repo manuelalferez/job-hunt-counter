@@ -1,5 +1,3 @@
-import { Button } from "./ui/button";
-
 export default function Footer() {
   return (
     <footer className="flex justify-center items-center gap-8 mt-48 mb-12">
@@ -15,7 +13,7 @@ export default function Footer() {
         </a>
       </p>
 
-      <Button className="bg-light bg-opacity-75 hover:bg-light">
+      <button className="btn bg-light bg-opacity-75 hover:bg-light">
         <a
           href="https://github.com/manuelalferez/job-hunt-counter"
           target="_blank"
@@ -24,7 +22,7 @@ export default function Footer() {
         >
           Source code
         </a>
-      </Button>
+      </button>
     </footer>
   );
 }

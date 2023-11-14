@@ -1,6 +1,5 @@
 import Counter from "./components/counter";
 import Stats from "./components/stats";
-import { Card } from "./components/ui/card";
 import { decreaseCounter, getCounter, incrementCounter } from "./lib/data";
 import { isPasswordCorrect } from "./lib/utils";
 
@@ -77,13 +76,13 @@ export default async function Home({
         </div>
       )}
       {!isAuthorized && (
-        <Card className="flex flex-col gap-4 items-center justify-center text-dark py-12 bg-light border-4 border-lightgreen shadow-md">
+        <div className="card flex flex-col gap-4 items-center justify-center text-dark py-12 bg-light border-4 border-lightgreen shadow-md">
           <h1 className="text-4xl">Unauthorized ✋</h1>
           <p className="">
             Please, enter the password to access the data. The password is
             provided in the URL as a query parameter.
           </p>
-        </Card>
+        </div>
       )}
     </main>
   );

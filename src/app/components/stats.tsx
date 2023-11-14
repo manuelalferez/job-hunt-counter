@@ -1,12 +1,3 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "./ui/table";
-
 export default async function Stats({
   fetchCounter,
 }: {
@@ -34,34 +25,34 @@ export default async function Stats({
 
   return (
     <div className="border-4 rounded-md border-lightgreen mx-auto w-fit h-fit mb-12 bg-light">
-      <Table className="w-fit  p-0 border-0  rounded-md shadow-md bg-light hover:bg-light">
-        <TableHeader>
-          <TableRow className="border-none">
-            <TableHead className=" text-dark text-xl hover:bg-light bg-light">
+      <table className="table w-fit  p-0 border-0  rounded-md shadow-md bg-light hover:bg-light">
+        <thead>
+          <tr className="border-none">
+            <th className=" text-dark text-xl hover:bg-light bg-light">
               People contacted vs responded
-            </TableHead>
-            <TableHead className=" text-dark text-xl hover:bg-light bg-light">
+            </th>
+            <th className=" text-dark text-xl hover:bg-light bg-light">
               Interviews rate (people contacted)
-            </TableHead>
-            <TableHead className=" text-dark text-xl hover:bg-light bg-light">
+            </th>
+            <th className=" text-dark text-xl hover:bg-light bg-light">
               Interviews rate (applications submitted)
-            </TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          <TableRow>
-            <TableCell className="text-3xl font-mono font-bold text-dark text-end hover:bg-light bg-light">
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td className="text-3xl font-mono font-bold text-dark text-end hover:bg-light bg-light">
               {peopleContactedVsResponded}%
-            </TableCell>
-            <TableCell className="text-3xl font-mono font-bold text-dark text-end hover:bg-light bg-light">
+            </td>
+            <td className="text-3xl font-mono font-bold text-dark text-end hover:bg-light bg-light">
               {interviewsRatePeopleContacted}%
-            </TableCell>
-            <TableCell className="text-3xl font-mono font-bold text-dark text-end hover:bg-light bg-light">
+            </td>
+            <td className="text-3xl font-mono font-bold text-dark text-end hover:bg-light bg-light">
               {interviewsRateApplicationsSubmitted}%
-            </TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 }
