@@ -1,4 +1,3 @@
-import { redirect } from "next/navigation";
 import Counter from "./components/counter";
 import { MonthsStats } from "./components/months-stats";
 import Stats from "./components/stats";
@@ -19,10 +18,6 @@ export default async function Home({
 }: {
   searchParams: SearchParams;
 }) {
-  if (Object.keys(searchParams).length === 0 || !searchParams.password) {
-    return redirect("/login");
-  }
-
   async function fetchCounter(title: string) {
     "use server";
     const key = createSlug(searchParams.password as string, title);
@@ -55,6 +50,15 @@ export default async function Home({
     "Offers",
   ];
 
+  async function checkIsAuthorized() {
+    "use server";
+    if (Object.keys(searchParams).length === 0) return false;
+    if (!searchParams.password) return false;
+    return true;
+  }
+
+  const isAuthorized = await checkIsAuthorized();
+
   return (
     <main className="p-24 flex flex-col gap-16">
       <div className="flex flex-col gap-8">
@@ -69,30 +73,41 @@ export default async function Home({
         </h2>
       </div>
 
-      <div className="flex flex-col gap-16">
-        <div className="flex justify-center gap-8 flex-wrap">
-          {titles.map((title, index) => (
-            <Counter
-              key={index}
-              title={title}
-              fetchCounter={fetchCounter}
-              fetchIncrementThisWeek={fetchIncrementThisWeek}
-              upCounter={upCounter}
-              downCounter={downCounter}
-            />
-          ))}
+      {isAuthorized && (
+        <div className="flex flex-col gap-16">
+          <div className="flex justify-center gap-8 flex-wrap">
+            {titles.map((title, index) => (
+              <Counter
+                key={index}
+                title={title}
+                fetchCounter={fetchCounter}
+                fetchIncrementThisWeek={fetchIncrementThisWeek}
+                upCounter={upCounter}
+                downCounter={downCounter}
+              />
+            ))}
+          </div>
+          <div>
+            <h1 className="text-4xl text-dark flex justify-center font-bold py-12 pb-8">
+              Global Insights
+            </h1>
+            <Stats fetchCounter={fetchCounter} />
+            <h1 className="text-4xl text-dark flex justify-center font-bold py-12 pb-8">
+              Monthly Insights
+            </h1>
+            <MonthsStats password={searchParams.password!} />
+          </div>
         </div>
-        <div>
-          <h1 className="text-4xl text-dark flex justify-center font-bold py-12 pb-8">
-            Global Insights
-          </h1>
-          <Stats fetchCounter={fetchCounter} />
-          <h1 className="text-4xl text-dark flex justify-center font-bold py-12 pb-8">
-            Monthly Insights
-          </h1>
-          <MonthsStats password={searchParams.password} />
+      )}
+      {!isAuthorized && (
+        <div className="card flex flex-col gap-4 items-center justify-center text-dark py-12 bg-light border-4 border-lightgreen shadow-md">
+          <h1 className="text-4xl">Unauthorized ✋</h1>
+          <p className="">
+            Please, enter the password to access the data. The password is
+            provided in the URL as a query parameter.
+          </p>
         </div>
-      </div>
+      )}
     </main>
   );
 }
