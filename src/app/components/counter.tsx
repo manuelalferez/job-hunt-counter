@@ -6,21 +6,27 @@ import { DownIcon, LoadingIcon, UpIcon } from "./ui/counter-icons";
 export default function Counter({
   title,
   fetchCounter,
+  fetchIncrementThisWeek,
   downCounter,
   upCounter,
 }: {
   title: string;
-  fetchCounter: (title: string) => Promise<string>;
+  fetchCounter: (title: string) => Promise<number>;
+  fetchIncrementThisWeek: (title: string) => Promise<number>;
   downCounter: (title: string) => Promise<void>;
   upCounter: (title: string) => Promise<void>;
 }) {
   const [count, setCount] = useState(0);
+  const [incrementThisWeek, setIncrementThisWeek] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       const value = await fetchCounter(title);
       setCount(Number(value));
+
+      const increment = await fetchIncrementThisWeek(title);
+      setIncrementThisWeek(Number(increment));
     };
 
     fetchData();
@@ -45,6 +51,9 @@ export default function Counter({
         <h1 className="text-8xl pt-2 text-dark font-mono font-bold">
           {isLoading ? <LoadingIcon /> : count}
         </h1>
+        <div className="stat-desc text-dark font-mono text-start">
+          ↗︎ {incrementThisWeek} this week
+        </div>
       </div>
       <div>
         <button

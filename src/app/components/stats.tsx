@@ -1,31 +1,32 @@
 export default async function Stats({
   fetchCounter,
 }: {
-  fetchCounter: (title: string) => Promise<string>;
+  fetchCounter: (title: string) => Promise<number>;
 }) {
   const peopleContacted = await fetchCounter("People contacted");
   const peopleResponded = await fetchCounter("People responded");
   const interviews = await fetchCounter("Interviews");
+
   const applicationsSubmitted = await fetchCounter("Applications submitted");
 
-  const peopleContactedVsResponded = (
-    (Number(peopleResponded) / Number(peopleContacted)) *
-    100
-  ).toFixed(2);
+  const peopleContactedVsResponded =
+    peopleContacted === 0
+      ? 0
+      : ((Number(peopleResponded) / Number(peopleContacted)) * 100).toFixed(2);
 
-  const interviewsRatePeopleContacted = (
-    (Number(interviews) / Number(peopleContacted)) *
-    100
-  ).toFixed(2);
+  const interviewsRatePeopleContacted =
+    peopleContacted === 0
+      ? 0
+      : ((Number(interviews) / Number(peopleContacted)) * 100).toFixed(2);
 
-  const interviewsRateApplicationsSubmitted = (
-    (Number(interviews) / Number(applicationsSubmitted)) *
-    100
-  ).toFixed(2);
+  const interviewsRateApplicationsSubmitted =
+    applicationsSubmitted === 0
+      ? 0
+      : ((Number(interviews) / Number(applicationsSubmitted)) * 100).toFixed(2);
 
   return (
     <div className="border-4 rounded-md border-lightgreen mx-auto w-fit h-fit mb-12 bg-light">
-      <table className="table w-fit  p-0 border-0  rounded-md shadow-md bg-light hover:bg-light">
+      <table className="table w-fit p-0 pb-none border-0 rounded-md shadow-md bg-light hover:bg-light">
         <thead>
           <tr className="border-none">
             <th className=" text-dark text-xl hover:bg-light bg-light">

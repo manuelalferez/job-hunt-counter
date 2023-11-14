@@ -1,6 +1,11 @@
 import Counter from "./components/counter";
 import Stats from "./components/stats";
-import { decreaseCounter, getCounter, incrementCounter } from "./lib/data";
+import {
+  decreaseCounter,
+  getCounter,
+  getIncrementThisWeek,
+  incrementCounter,
+} from "./lib/data";
 import { isPasswordCorrect } from "./lib/utils";
 
 type SearchParams = {
@@ -15,6 +20,11 @@ export default async function Home({
   async function fetchCounter(title: string) {
     "use server";
     return await getCounter(title);
+  }
+
+  async function fetchIncrementThisWeek(title: string) {
+    "use server";
+    return await getIncrementThisWeek(title);
   }
 
   async function upCounter(title: string) {
@@ -65,6 +75,7 @@ export default async function Home({
                 key={index}
                 title={title}
                 fetchCounter={fetchCounter}
+                fetchIncrementThisWeek={fetchIncrementThisWeek}
                 upCounter={upCounter}
                 downCounter={downCounter}
               />
