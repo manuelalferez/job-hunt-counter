@@ -33,7 +33,7 @@ export function LoadingIcon() {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      className="w-10 h-10 text-blue-200"
+      className="w-10 h-10 text-lightgreen"
     >
       <circle cx="12" cy="12" r="0" fill="currentColor">
         <animate
@@ -77,6 +77,21 @@ export function LoadingIcon() {
           values="1;0"
         />
       </circle>
+    </svg>
+  );
+}
+
+export function IncrementIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="w-4 h-4 text-dark"
+      viewBox="0 0 256 256"
+    >
+      <path
+        fill="currentColor"
+        d="M204 64v104a12 12 0 0 1-24 0V93L72.49 200.49a12 12 0 0 1-17-17L163 76H88a12 12 0 0 1 0-24h104a12 12 0 0 1 12 12Z"
+      />
     </svg>
   );
 }

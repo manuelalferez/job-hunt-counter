@@ -1,8 +1,14 @@
+import { redirect } from "next/navigation";
 import Counter from "./components/counter";
+import { MonthsStats } from "./components/months-stats";
 import Stats from "./components/stats";
-import { Card } from "./components/ui/card";
-import { decreaseCounter, getCounter, incrementCounter } from "./lib/data";
-import { isPasswordCorrect } from "./lib/utils";
+import {
+  decreaseCounter,
+  getCounter,
+  getIncrementThisWeek,
+  incrementCounter,
+} from "./lib/data";
+import { createSlug } from "./lib/utils";
 
 type SearchParams = {
   password?: string | null;
@@ -13,26 +19,32 @@ export default async function Home({
 }: {
   searchParams: SearchParams;
 }) {
+  if (Object.keys(searchParams).length === 0 || !searchParams.password) {
+    return redirect("/login");
+  }
+
   async function fetchCounter(title: string) {
     "use server";
-    return await getCounter(title);
+    const key = createSlug(searchParams.password as string, title);
+    return await getCounter(key);
+  }
+
+  async function fetchIncrementThisWeek(title: string) {
+    "use server";
+    const key = createSlug(searchParams.password as string, title);
+    return await getIncrementThisWeek(key);
   }
 
   async function upCounter(title: string) {
     "use server";
-    await incrementCounter(title);
+    const key = createSlug(searchParams.password as string, title);
+    await incrementCounter(key);
   }
 
   async function downCounter(title: string) {
     "use server";
-    await decreaseCounter(title);
-  }
-
-  async function checkIsAuthorized() {
-    "use server";
-    if (Object.keys(searchParams).length === 0) return false;
-    if (!searchParams.password) return false;
-    return isPasswordCorrect(searchParams.password);
+    const key = createSlug(searchParams.password as string, title);
+    await decreaseCounter(key);
   }
 
   const titles = [
@@ -42,8 +54,6 @@ export default async function Home({
     "Interviews",
     "Offers",
   ];
-
-  const isAuthorized = await checkIsAuthorized();
 
   return (
     <main className="p-24 flex flex-col gap-16">
@@ -58,33 +68,31 @@ export default async function Home({
           good Software Engineer you are.
         </h2>
       </div>
-      {isAuthorized && (
-        <div className="flex flex-col gap-16">
-          <div className="flex justify-center gap-8 flex-wrap">
-            {titles.map((title, index) => (
-              <Counter
-                key={index}
-                title={title}
-                fetchCounter={fetchCounter}
-                upCounter={upCounter}
-                downCounter={downCounter}
-              />
-            ))}
-          </div>
-          <div>
-            <Stats fetchCounter={fetchCounter} />
-          </div>
+
+      <div className="flex flex-col gap-16">
+        <div className="flex justify-center gap-8 flex-wrap">
+          {titles.map((title, index) => (
+            <Counter
+              key={index}
+              title={title}
+              fetchCounter={fetchCounter}
+              fetchIncrementThisWeek={fetchIncrementThisWeek}
+              upCounter={upCounter}
+              downCounter={downCounter}
+            />
+          ))}
         </div>
-      )}
-      {!isAuthorized && (
-        <Card className="flex flex-col gap-4 items-center justify-center text-dark py-12 bg-light border-4 border-lightgreen shadow-md">
-          <h1 className="text-4xl">Unauthorized ✋</h1>
-          <p className="">
-            Please, enter the password to access the data. The password is
-            provided in the URL as a query parameter.
-          </p>
-        </Card>
-      )}
+        <div>
+          <h1 className="text-4xl text-dark flex justify-center font-bold py-12 pb-8">
+            Global Insights
+          </h1>
+          <Stats fetchCounter={fetchCounter} />
+          <h1 className="text-4xl text-dark flex justify-center font-bold py-12 pb-8">
+            Monthly Insights
+          </h1>
+          <MonthsStats password={searchParams.password} />
+        </div>
+      </div>
     </main>
   );
 }

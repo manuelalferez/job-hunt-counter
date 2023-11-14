@@ -1,28 +1,37 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Card, CardDescription } from "./ui/card";
-import { Button } from "./ui/button";
-import { DownIcon, LoadingIcon, UpIcon } from "./ui/counter-icons";
+import {
+  DownIcon,
+  LoadingIcon,
+  IncrementIcon,
+  UpIcon,
+} from "./ui/counter-icons";
 
 export default function Counter({
   title,
   fetchCounter,
+  fetchIncrementThisWeek,
   downCounter,
   upCounter,
 }: {
   title: string;
-  fetchCounter: (title: string) => Promise<string>;
+  fetchCounter: (title: string) => Promise<number>;
+  fetchIncrementThisWeek: (title: string) => Promise<number>;
   downCounter: (title: string) => Promise<void>;
   upCounter: (title: string) => Promise<void>;
 }) {
   const [count, setCount] = useState(0);
+  const [incrementThisWeek, setIncrementThisWeek] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       const value = await fetchCounter(title);
       setCount(Number(value));
+
+      const increment = await fetchIncrementThisWeek(title);
+      setIncrementThisWeek(Number(increment));
     };
 
     fetchData();
@@ -41,29 +50,33 @@ export default function Counter({
   };
 
   return (
-    <Card className="w-fit p-1 border-4 border-lightgreen rounded-md shadow-md bg-light">
+    <div className="card w-fit p-1 border-4 border-lightgreen rounded-md shadow-md bg-light">
       <div className="p-4 flex justify-center flex-col items-center">
-        <CardDescription className="text-xl font-bold text-dark">
-          {title}
-        </CardDescription>
+        <div className="card-title text-xl font-bold text-dark">{title}</div>
         <h1 className="text-8xl pt-2 text-dark font-mono font-bold">
           {isLoading ? <LoadingIcon /> : count}
         </h1>
+        {incrementThisWeek !== 0 && (
+          <div className="stat-desc text-dark font-mono text-start flex gap-1">
+            <IncrementIcon />
+            <span className="font-bold">{incrementThisWeek}</span> this week
+          </div>
+        )}
       </div>
-      <Button
-        variant="outline"
-        onClick={down}
-        className="text-lightgreen w-1/2 hover:text-dark border-none rounded-none hover:bg-light bg-light"
-      >
-        <DownIcon />
-      </Button>
-      <Button
-        variant="outline"
-        onClick={up}
-        className="text-lightgreen w-1/2 hover:text-dark border-none rounded-none hover:bg-light bg-light"
-      >
-        <UpIcon />
-      </Button>
-    </Card>
+      <div>
+        <button
+          onClick={down}
+          className="btn text-lightgreen w-1/2 hover:text-dark border-none shadow-none rounded-none hover:bg-light bg-light"
+        >
+          <DownIcon />
+        </button>
+        <button
+          onClick={up}
+          className="btn text-lightgreen w-1/2 hover:text-dark border-none shadow-none rounded-none hover:bg-light bg-light"
+        >
+          <UpIcon />
+        </button>
+      </div>
+    </div>
   );
 }
