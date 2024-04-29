@@ -7,18 +7,17 @@ export default function Footer() {
           href="https://manuelalferez.com/"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-dark underline"
+          className="underline"
         >
           Manuel
         </a>
       </p>
 
-      <button className="btn bg-light bg-opacity-75 hover:bg-light">
+      <button className="btn">
         <a
           href="https://github.com/manuelalferez/job-hunt-counter"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-dark"
         >
           Source code
         </a>

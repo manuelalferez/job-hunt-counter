@@ -62,10 +62,8 @@ export default async function Home({
   return (
     <main className="p-24 flex flex-col gap-16">
       <div className="flex flex-col gap-8">
-        <h1 className="text-6xl text-dark flex justify-center font-bold">
-          Applications
-        </h1>
-        <h2 className="text-center text-dark text-lg italic">
+        <h1 className="text-6xl flex justify-center font-bold">Applications</h1>
+        <h2 className="text-center text-lg italic">
           Interviews is just a number game. A random game. Your interview
           performance says nothing about you. It says nothing about your worth.
           It says nothing about your intelligence and it says nothing about how
@@ -88,11 +86,11 @@ export default async function Home({
             ))}
           </div>
           <div>
-            <h1 className="text-4xl text-dark flex justify-center font-bold py-12 pb-8">
+            <h1 className="text-4xl flex justify-center font-bold py-12 pb-8">
               Global Insights
             </h1>
             <Stats fetchCounter={fetchCounter} />
-            <h1 className="text-4xl text-dark flex justify-center font-bold py-12 pb-8">
+            <h1 className="text-4xl flex justify-center font-bold py-12 pb-8">
               Monthly Insights
             </h1>
             <MonthsStats password={searchParams.password!} />
@@ -100,7 +98,7 @@ export default async function Home({
         </div>
       )}
       {!isAuthorized && (
-        <div className="card flex flex-col gap-4 items-center justify-center text-dark py-12 bg-light border-4 border-lightgreen shadow-md">
+        <div className="card flex flex-col gap-4 items-center justify-center py-12 my-12 border-4 shadow-md">
           <h1 className="text-4xl">Unauthorized ✋</h1>
           <p className="">
             Please, enter the password to access the data. The password is

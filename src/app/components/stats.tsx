@@ -24,30 +24,26 @@ export default async function Stats({
       : ((Number(interviews) / Number(applicationsSubmitted)) * 100).toFixed(2);
 
   return (
-    <div className="border-4 rounded-md border-lightgreen mx-auto w-fit h-fit mb-12 bg-light">
-      <table className="table w-fit p-0 pb-none border-0 rounded-md shadow-md bg-light hover:bg-light">
+    <div className="border-4 rounded-md mx-auto w-fit h-fit mb-12">
+      <table className="table w-fit p-0 pb-none border-0 rounded-none shadow-md bg-black bg-opacity-10">
         <thead>
-          <tr className="border-none">
-            <th className=" text-dark text-xl hover:bg-light bg-light">
-              People contacted vs responded
-            </th>
-            <th className=" text-dark text-xl hover:bg-light bg-light">
-              Interviews rate (people contacted)
-            </th>
-            <th className=" text-dark text-xl hover:bg-light bg-light">
+          <tr className="border-none text-black">
+            <th className="text-xl">People contacted vs responded</th>
+            <th className="text-xl">Interviews rate (people contacted)</th>
+            <th className="text-xl">
               Interviews rate (applications submitted)
             </th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td className="text-3xl font-mono font-bold text-dark text-end hover:bg-light bg-light">
+            <td className="text-3xl font-mono font-bold text-end">
               {peopleContactedVsResponded}%
             </td>
-            <td className="text-3xl font-mono font-bold text-dark text-end hover:bg-light bg-light">
+            <td className="text-3xl font-mono font-bold text-end">
               {interviewsRatePeopleContacted}%
             </td>
-            <td className="text-3xl font-mono font-bold text-dark text-end hover:bg-light bg-light">
+            <td className="text-3xl font-mono font-bold text-end">
               {interviewsRateApplicationsSubmitted}%
             </td>
           </tr>

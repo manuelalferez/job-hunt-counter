@@ -50,14 +50,14 @@ export default function Counter({
   };
 
   return (
-    <div className="card w-fit p-1 border-4 border-lightgreen rounded-md shadow-md bg-light">
+    <div className="card w-fit p-1 border-4 bg-black bg-opacity-10 rounded-md shadow-md">
       <div className="p-4 flex justify-center flex-col items-center">
-        <div className="card-title text-xl font-bold text-dark">{title}</div>
-        <h1 className="text-8xl pt-2 text-dark font-mono font-bold">
+        <div className="card-title text-xl font-bold">{title}</div>
+        <h1 className="text-8xl pt-2 font-mono font-bold">
           {isLoading ? <LoadingIcon /> : count}
         </h1>
         {incrementThisWeek !== 0 && (
-          <div className="stat-desc text-dark font-mono text-start flex gap-1">
+          <div className="stat-desc font-mono text-start flex gap-1">
             <IncrementIcon />
             <span className="font-bold">{incrementThisWeek}</span> this week
           </div>
@@ -66,13 +66,13 @@ export default function Counter({
       <div>
         <button
           onClick={down}
-          className="btn text-lightgreen w-1/2 hover:text-dark border-none shadow-none rounded-none hover:bg-light bg-light"
+          className="btn text-black text-opacity-30 w-1/2 hover:text-black border-none hover:bg-transparent bg-transparent shadow-none rounded-none"
         >
           <DownIcon />
         </button>
         <button
           onClick={up}
-          className="btn text-lightgreen w-1/2 hover:text-dark border-none shadow-none rounded-none hover:bg-light bg-light"
+          className="btn text-black text-opacity-30 w-1/2 hover:text-black border-none hover:bg-transparent bg-transparent shadow-none rounded-none"
         >
           <UpIcon />
         </button>
